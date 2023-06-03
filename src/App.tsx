@@ -1,3 +1,5 @@
+import { Typography } from 'antd'
+
 export const App = () => {
-	return <h1>Dashboard UI</h1>
+	return <Typography.Title level={1}>Dashboard UI</Typography.Title>
 }
