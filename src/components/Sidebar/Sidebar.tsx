@@ -40,7 +40,7 @@ type SidebarProps = {
 export const Sidebar = ({ collapsed }: SidebarProps) => {
 	const navigate = useNavigate()
 	const location = useLocation()
-	const [selectedKeys, setSelectedKeys] = useState<string>('/')
+	const [selectedKeys, setSelectedKeys] = useState<string>(location.pathname)
 
 	useEffect(() => {
 		const pathName = location.pathname
