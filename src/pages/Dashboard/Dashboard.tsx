@@ -4,10 +4,44 @@ import {
 	ShoppingOutlined,
 	UserOutlined,
 } from '@ant-design/icons'
+import { useState, useEffect } from 'react'
 import { Col, Row, Space, Typography } from 'antd'
-import { Chart, MenuCard, TableOrder } from '../../components'
+import { Chart, MenuCard, Table } from '../../components'
+import { ProductCart } from '../../types'
+import { fetchOrders, fetchRevenue } from '../../lib/fetchData'
+import { ordersTable } from '../../utils'
+import { fetchInventory } from '../../lib/fetchData'
+import { fetchCustomers } from '../../lib/fetchData'
 
 export const Dashboard = () => {
+	const [orders, setOrders] = useState<ProductCart[]>([])
+	const [loading, setLoading] = useState<boolean>(false)
+	const [ordersCount, setOrdersCount] = useState<number>(0)
+	const [reveneuCount, setReveneuCount] = useState<number>(0)
+	const [inventoryCount, setInventoryCount] = useState<number>(0)
+	const [customersCount, setCustomersCount] = useState<number>(0)
+
+	useEffect(() => {
+		setLoading(true)
+		fetchOrders().then((res) => {
+			setOrders(res.products.splice(0, 4))
+			setOrdersCount(res.discountedTotal)
+			setLoading(false)
+		})
+	}, [])
+
+	useEffect(() => {
+		fetchRevenue().then((res) => setReveneuCount(res.total))
+	}, [])
+
+	useEffect(() => {
+		fetchInventory().then((res) => setInventoryCount(res.total))
+	}, [])
+
+	useEffect(() => {
+		fetchCustomers().then((res) => setCustomersCount(res.total))
+	}, [])
+
 	return (
 		<Space size={18} direction='vertical' style={{ width: '100%' }}>
 			<Row gutter={24}>
@@ -28,7 +62,7 @@ export const Dashboard = () => {
 							/>
 						}
 						title='Orders'
-						value={133}
+						value={ordersCount}
 					/>
 				</Col>{' '}
 				<Col span={6}>
@@ -45,7 +79,7 @@ export const Dashboard = () => {
 							/>
 						}
 						title='Inventory'
-						value={12}
+						value={inventoryCount}
 					/>
 				</Col>{' '}
 				<Col span={6}>
@@ -62,7 +96,7 @@ export const Dashboard = () => {
 							/>
 						}
 						title='Customers'
-						value={45}
+						value={customersCount}
 					/>
 				</Col>{' '}
 				<Col span={6}>
@@ -79,13 +113,13 @@ export const Dashboard = () => {
 							/>
 						}
 						title='Revenue'
-						value={89}
+						value={reveneuCount}
 					/>
 				</Col>
 			</Row>
-			<Row gutter={16}>
+			<Row gutter={16} align='stretch' wrap>
 				<Col span={12}>
-					<TableOrder />
+					<Table data={orders} loading={loading} columnsData={ordersTable} />
 				</Col>
 				<Col span={12}>
 					<Chart />

@@ -45,7 +45,7 @@ export const Chart = () => {
 	}, [])
 
 	return (
-		<Card>
+		<Card style={{ height: 298 }}>
 			<Bar
 				options={{
 					responsive: true,

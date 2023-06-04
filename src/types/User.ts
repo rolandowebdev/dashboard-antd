@@ -1,36 +1,3 @@
-type Coordinates = {
-	lat: number
-	lng: number
-}
-
-type Address = {
-	address: string
-	city: string
-	coordinates: Coordinates
-	postalCode: string
-	state: string
-}
-
-type Hair = {
-	color: string
-	type: string
-}
-
-type Bank = {
-	cardExpire: string
-	cardNumber: string
-	cardType: string
-	currency: string
-	iban: string
-}
-
-type Company = {
-	address: Address
-	department: string
-	name: string
-	title: string
-}
-
 export type User = {
 	id: number
 	firstName: string
@@ -48,15 +15,54 @@ export type User = {
 	height: number
 	weight: number
 	eyeColor: string
-	hair: Hair
+	hair: {
+		color: string
+		type: string
+	}
 	domain: string
 	ip: string
-	address: Address
+	address: {
+		address: string
+		city: string
+		coordinates: {
+			lat: number
+			lng: number
+		}
+		postalCode: string
+		state: string
+	}
 	macAddress: string
 	university: string
-	bank: Bank
-	company: Company
+	bank: {
+		cardExpire: string
+		cardNumber: string
+		cardType: string
+		currency: string
+		iban: string
+	}
+	company: {
+		address: {
+			address: string
+			city: string
+			coordinates: {
+				lat: number
+				lng: number
+			}
+			postalCode: string
+			state: string
+		}
+		department: string
+		name: string
+		title: string
+	}
 	ein: string
 	ssn: string
 	userAgent: string
+}
+
+export type Users = {
+	users: User[]
+	total: number
+	skip: number
+	limit: number
 }

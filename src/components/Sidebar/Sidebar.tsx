@@ -4,8 +4,9 @@ import {
 	ShoppingOutlined,
 	UserOutlined,
 } from '@ant-design/icons'
-import { Layout, Menu, MenuProps } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Layout, Menu } from 'antd'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const menuItems = [
 	{
@@ -38,17 +39,23 @@ type SidebarProps = {
 
 export const Sidebar = ({ collapsed }: SidebarProps) => {
 	const navigate = useNavigate()
-	const handleNavigate: MenuProps['onClick'] = (e) => {
-		navigate(e.key)
-	}
+	const location = useLocation()
+	const [selectedKeys, setSelectedKeys] = useState<string>('/')
+
+	useEffect(() => {
+		const pathName = location.pathname
+		setSelectedKeys(pathName)
+	}, [location.pathname])
 
 	return (
 		<Sider trigger={null} collapsible collapsed={collapsed} width={230}>
 			<Menu
+				style={{ position: 'sticky', top: 0 }}
+				selectedKeys={[selectedKeys]}
 				theme='dark'
 				mode='vertical'
 				defaultSelectedKeys={['1']}
-				onClick={(e) => handleNavigate(e)}
+				onClick={(e) => navigate(e.key)}
 				items={menuItems}
 			/>
 		</Sider>

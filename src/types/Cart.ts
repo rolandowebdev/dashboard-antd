@@ -1,4 +1,4 @@
-export interface ProductCart {
+export type ProductCart = {
 	id: number
 	title: string
 	price: number
@@ -8,7 +8,7 @@ export interface ProductCart {
 	discountedPrice: number
 }
 
-export interface Cart {
+export type Cart = {
 	id: number
 	products: ProductCart[]
 	total: number
@@ -18,7 +18,7 @@ export interface Cart {
 	totalQuantity: number
 }
 
-export interface Carts {
+export type Carts = {
 	carts: Cart[]
 	total: number
 	skip: number
