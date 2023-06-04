@@ -1,35 +1,7 @@
-import {
-	AppstoreOutlined,
-	ShopOutlined,
-	ShoppingOutlined,
-	UserOutlined,
-} from '@ant-design/icons'
-import { useEffect, useState } from 'react'
 import { Layout, Menu } from 'antd'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-
-const menuItems = [
-	{
-		label: 'Dashboard',
-		icon: <AppstoreOutlined />,
-		key: '/',
-	},
-	{
-		label: 'Inventory',
-		icon: <ShopOutlined />,
-		key: '/inventory',
-	},
-	{
-		label: 'Orders',
-		icon: <ShoppingOutlined />,
-		key: '/orders',
-	},
-	{
-		label: 'Customers',
-		icon: <UserOutlined />,
-		key: '/customers',
-	},
-]
+import { menuItems } from '../../utils'
 
 const { Sider } = Layout
 
