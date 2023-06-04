@@ -1,20 +1,25 @@
-import { Comment, Product, ShoppingCart, User } from '../types'
+import { Cart, Carts, Comment, Product, User } from '../types'
 
-export const fetchOrders = (): Promise<ShoppingCart> => {
-	return fetch('https://dummyjson.com/carts/1').then((res) => res.json())
+export const fetchOrders = async (): Promise<Cart> => {
+	const res = await fetch('https://dummyjson.com/carts/1')
+	return await res.json()
 }
 
-export const fetchRevenue = (): Promise<ShoppingCart[]> => {
-	return fetch('https://dummyjson.com/carts').then((res) => res.json())
+export const fetchRevenue = async (): Promise<Carts> => {
+	const res = await fetch('https://dummyjson.com/carts')
+	return await res.json()
 }
 
-export const fetchInventory = (): Promise<Product> => {
-	return fetch('https://dummyjson.com/products').then((res) => res.json())
+export const fetchInventory = async (): Promise<Product> => {
+	const res = await fetch('https://dummyjson.com/products')
+	return await res.json()
 }
 
-export const fetchCustomers = (): Promise<User> => {
-	return fetch('https://dummyjson.com/users').then((res) => res.json())
+export const fetchCustomers = async (): Promise<User> => {
+	const res = await fetch('https://dummyjson.com/users')
+	return await res.json()
 }
-export const fetchComments = (): Promise<Comment> => {
-	return fetch('https://dummyjson.com/comments').then((res) => res.json())
+export const fetchComments = async (): Promise<Comment> => {
+	const res = await fetch('https://dummyjson.com/comments')
+	return await res.json()
 }

@@ -11,7 +11,7 @@ export const Content = () => {
 	return (
 		<AntContent
 			style={{
-				paddingBlock: 16,
+				paddingTop: 12,
 				paddingInline: 24,
 				background: colorBgContainer,
 			}}>

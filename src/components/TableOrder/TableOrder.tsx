@@ -10,19 +10,16 @@ export const TableOrder = () => {
 	useEffect(() => {
 		setLoading(true)
 		fetchOrders().then((res) => {
-			setOrders(res.products)
+			setOrders(res.products.splice(0, 4))
 			setLoading(false)
 		})
 	}, [])
 
-	console.log(orders)
-
 	return (
 		<Table
-			size='middle'
 			columns={[
 				{
-					title: 'Title',
+					title: 'Resent Orders',
 					dataIndex: 'title',
 				},
 				{

@@ -5,13 +5,15 @@ import {
 	UserOutlined,
 } from '@ant-design/icons'
 import { Col, Row, Space, Typography } from 'antd'
-import { MenuCard, TableOrder } from '../../components'
+import { Chart, MenuCard, TableOrder } from '../../components'
 
 export const Dashboard = () => {
 	return (
-		<Space direction='vertical' style={{ width: '100%' }}>
-			<Typography.Title level={3}>Dashboard</Typography.Title>
-			<Row gutter={[16, 16]}>
+		<Space size={18} direction='vertical' style={{ width: '100%' }}>
+			<Row gutter={24}>
+				<Col span={24}>
+					<Typography.Title level={3}>Dashboard</Typography.Title>
+				</Col>
 				<Col span={6}>
 					<MenuCard
 						icon={
@@ -81,9 +83,14 @@ export const Dashboard = () => {
 					/>
 				</Col>
 			</Row>
-			<Space>
-				<TableOrder />
-			</Space>
+			<Row gutter={16}>
+				<Col span={12}>
+					<TableOrder />
+				</Col>
+				<Col span={12}>
+					<Chart />
+				</Col>
+			</Row>
 		</Space>
 	)
 }
