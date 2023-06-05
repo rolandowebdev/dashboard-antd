@@ -11,6 +11,11 @@
   ]
 
 [[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
   from = "/chat"
   to = "https://wa.me/6285758047504?text=Halo"
   status = 301
