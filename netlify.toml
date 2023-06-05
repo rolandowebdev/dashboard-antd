@@ -11,11 +11,6 @@
   ]
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
   from = "/chat"
   to = "https://wa.me/6285758047504?text=Halo"
   status = 301
@@ -29,3 +24,8 @@
   from = "/github"
   to = "https://github.com/rolandowebdev"
   status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
