@@ -1,0 +1,27 @@
+[build]
+  command = "yarn build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[plugins]]
+  package = "@netlify/plugin-buildbot"
+
+[build.headers]
+  "/*" = [
+    "Cache-Control: public, max-age=0, must-revalidate",
+  ]
+
+[[redirects]]
+  from = "/chat"
+  to = "https://wa.me/6285758047504?text=Halo"
+  status = 301
+
+[[redirects]]
+  from = "/rolandowebdev"
+  to = "https://rolandowebdev.space"
+  status = 301

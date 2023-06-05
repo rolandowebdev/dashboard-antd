@@ -16,17 +16,15 @@ export const Footer = () => {
 			}}>
 			<Row>
 				<Col span={8}>
-					<Typography.Link href='tel:+6285758047504'>
-						+6285758047504
-					</Typography.Link>
+					<Typography.Link href='/chat'>+6285758047504</Typography.Link>
 				</Col>
 				<Col span={8}>
-					<Typography.Link href='https://rolandowebdev.space' target='_blank'>
+					<Typography.Link href='/rolandowebdev' target='_blank'>
 						Privacy Policy
 					</Typography.Link>
 				</Col>
 				<Col span={8}>
-					<Typography.Link href='https://rolandowebdev.space' target='_blank'>
+					<Typography.Link href='/rolandowebdev' target='_blank'>
 						Terms Of Use
 					</Typography.Link>
 				</Col>
