@@ -19,7 +19,7 @@ export const Footer = () => {
 					<Typography.Link href='/chat'>+6285758047504</Typography.Link>
 				</Col>
 				<Col span={8}>
-					<Typography.Link href='/rolandowebdev' target='_blank'>
+					<Typography.Link href='/website' target='_blank'>
 						Privacy Policy
 					</Typography.Link>
 				</Col>
