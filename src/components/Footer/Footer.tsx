@@ -24,7 +24,7 @@ export const Footer = () => {
 					</Typography.Link>
 				</Col>
 				<Col span={8}>
-					<Typography.Link href='/rolandowebdev' target='_blank'>
+					<Typography.Link href='/github' target='_blank'>
 						Terms Of Use
 					</Typography.Link>
 				</Col>

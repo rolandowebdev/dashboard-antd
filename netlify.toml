@@ -5,12 +5,6 @@
 [build.environment]
   NODE_VERSION = "18"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-[[plugins]]
-  package = "@netlify/plugin-buildbot"
-
 [build.headers]
   "/*" = [
     "Cache-Control: public, max-age=0, must-revalidate",
@@ -22,6 +16,11 @@
   status = 301
 
 [[redirects]]
-  from = "/rolandowebdev"
+  from = "/website"
   to = "https://rolandowebdev.space"
+  status = 301
+
+[[redirects]]
+  from = "/github"
+  to = "https://github.com/rolandowebdev"
   status = 301
