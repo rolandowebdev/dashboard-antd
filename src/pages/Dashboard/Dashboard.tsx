@@ -4,43 +4,56 @@ import {
 	ShoppingOutlined,
 	UserOutlined,
 } from '@ant-design/icons'
-import { useState, useEffect } from 'react'
 import { Col, Row, Space, Typography } from 'antd'
+import { UseQueryResult, useQuery } from 'react-query'
 import { Chart, MenuCard, Table } from '../../components'
-import { ProductCart } from '../../types'
-import { fetchOrders, fetchRevenue } from '../../lib/fetchData'
+import {
+	fetchCustomers,
+	fetchInventory,
+	fetchOrders,
+	fetchRevenue,
+} from '../../lib/fetchData'
+import { Cart, Carts, ChartDataSource, Products, Users } from '../../types'
 import { ordersTable } from '../../utils'
-import { fetchInventory } from '../../lib/fetchData'
-import { fetchCustomers } from '../../lib/fetchData'
 
 export const Dashboard = () => {
-	const [orders, setOrders] = useState<ProductCart[]>([])
-	const [loading, setLoading] = useState<boolean>(false)
-	const [ordersCount, setOrdersCount] = useState<number>(0)
-	const [reveneuCount, setReveneuCount] = useState<number>(0)
-	const [inventoryCount, setInventoryCount] = useState<number>(0)
-	const [customersCount, setCustomersCount] = useState<number>(0)
+	const {
+		data: revenue,
+		isLoading: isRevenueLoading,
+		isError: isRevenueError,
+		error: revenueError,
+	}: UseQueryResult<Carts, Error> = useQuery<Carts, Error>(
+		'revenue',
+		fetchRevenue
+	)
 
-	useEffect(() => {
-		setLoading(true)
-		fetchOrders().then((res) => {
-			setOrders(res.products.splice(0, 4))
-			setOrdersCount(res.discountedTotal)
-			setLoading(false)
-		})
-	}, [])
+	const { data: orders, isLoading: isOrdersLoading }: UseQueryResult<Cart> =
+		useQuery<Cart>('orders', fetchOrders)
 
-	useEffect(() => {
-		fetchRevenue().then((res) => setReveneuCount(res.total))
-	}, [])
+	const { data: inventory }: UseQueryResult<Products> = useQuery<Products>(
+		'inventoryCount',
+		fetchInventory
+	)
 
-	useEffect(() => {
-		fetchInventory().then((res) => setInventoryCount(res.total))
-	}, [])
+	const { data: customers }: UseQueryResult<Users> = useQuery<Users>(
+		'customersCount',
+		fetchCustomers
+	)
 
-	useEffect(() => {
-		fetchCustomers().then((res) => setCustomersCount(res.total))
-	}, [])
+	const revenueLabels = revenue?.carts.map((cart) => `User-${cart.userId}`)
+	const revenueData = revenue?.carts.map((cart) => cart.discountedTotal)
+
+	const revenueCount = revenue?.total || 0
+	const inventoryCount = inventory?.total || 0
+	const customersCount = customers?.total || 0
+	const ordersCount = orders?.total || 0
+
+	const revenueDataSource: ChartDataSource = {
+		labels: revenueLabels || [],
+		datasets: [
+			{ label: 'Revenue', data: revenueData || [], backgroundColor: '#001529' },
+		],
+	}
 
 	return (
 		<Space size={18} direction='vertical' style={{ width: '100%' }}>
@@ -113,16 +126,25 @@ export const Dashboard = () => {
 							/>
 						}
 						title='Revenue'
-						value={reveneuCount}
+						value={revenueCount}
 					/>
 				</Col>
 			</Row>
 			<Row gutter={16} align='stretch' wrap>
 				<Col span={12}>
-					<Table data={orders} loading={loading} columnsData={ordersTable} />
+					<Table
+						data={orders?.products.slice(0, 4) || []}
+						loading={isOrdersLoading}
+						columnsData={ordersTable}
+					/>
 				</Col>
 				<Col span={12}>
-					<Chart />
+					<Chart
+						error={revenueError}
+						isError={isRevenueError}
+						isLoading={isRevenueLoading}
+						dataSource={revenueDataSource}
+					/>
 				</Col>
 			</Row>
 		</Space>

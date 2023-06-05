@@ -1,26 +1,20 @@
 import { Space, Typography } from 'antd'
-import { useEffect, useState } from 'react'
-import { fetchInventory } from '../../lib/fetchData'
-import { Product } from '../../types'
+import { UseQueryResult, useQuery } from 'react-query'
 import { Table } from '../../components'
+import { fetchInventory } from '../../lib/fetchData'
+import { Products } from '../../types'
 import { inventoryTable } from '../../utils'
 
 export const Inventory = () => {
-	const [products, setProducts] = useState<Product[]>([])
-	const [loading, setLoading] = useState<boolean>(false)
-
-	useEffect(() => {
-		setLoading(true)
-		fetchInventory().then((res) => setProducts(res.products))
-		setLoading(false)
-	}, [])
+	const { data: products, isLoading }: UseQueryResult<Products> =
+		useQuery<Products>('products', fetchInventory)
 
 	return (
 		<Space size={0} direction='vertical' style={{ width: '100%' }}>
 			<Typography.Title level={3}>Inventory</Typography.Title>
 			<Table
-				data={products}
-				loading={loading}
+				data={products?.products || []}
+				loading={isLoading}
 				columnsData={inventoryTable}
 				pagination={{ pageSize: 5 }}
 			/>

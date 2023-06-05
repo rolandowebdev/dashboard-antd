@@ -1,26 +1,22 @@
 import { Space, Typography } from 'antd'
-import { useEffect, useState } from 'react'
 import { Table } from '../../components'
 import { fetchCustomers } from '../../lib/fetchData'
-import { User } from '../../types'
+import { Users } from '../../types'
 import { usersTable } from '../../utils'
+import { UseQueryResult, useQuery } from 'react-query'
 
 export const Customers = () => {
-	const [users, setUsers] = useState<User[]>([])
-	const [loading, setLoading] = useState<boolean>(false)
-
-	useEffect(() => {
-		setLoading(true)
-		fetchCustomers().then((res) => setUsers(res.users))
-		setLoading(false)
-	}, [])
+	const { data: users, isLoading }: UseQueryResult<Users> = useQuery<Users>(
+		'users',
+		fetchCustomers
+	)
 
 	return (
 		<Space size={0} direction='vertical' style={{ width: '100%' }}>
 			<Typography.Title level={3}>Orders</Typography.Title>
 			<Table
-				data={users}
-				loading={loading}
+				data={users?.users || []}
+				loading={isLoading}
 				columnsData={usersTable}
 				pagination={{ pageSize: 5 }}
 			/>

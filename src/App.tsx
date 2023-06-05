@@ -1,21 +1,22 @@
 import { Layout } from 'antd'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { UseQueryResult, useQuery } from 'react-query'
 import { Content, Footer, Header, Sidebar } from './components'
 import { fetchComments, fetchOrders } from './lib/fetchData'
-import { Comment, ProductCart } from './types'
+import { Cart, Comments } from './types'
 
 export const App: React.FC = () => {
 	const [collapsed, setCollapsed] = useState<boolean>(false)
-	const [comments, setComments] = useState<Comment[]>([])
-	const [orders, setOrders] = useState<ProductCart[]>([])
 
-	useEffect(() => {
-		fetchComments().then((res) => setComments(res.comments))
-	}, [])
+	const { data: comments }: UseQueryResult<Comments> = useQuery<Comments>(
+		'comments',
+		fetchComments
+	)
 
-	useEffect(() => {
-		fetchOrders().then((res) => setOrders(res.products))
-	}, [])
+	const { data: orders }: UseQueryResult<Cart> = useQuery<Cart>(
+		'orders',
+		fetchOrders
+	)
 
 	return (
 		<Layout style={{ minHeight: '100vh' }} hasSider>
@@ -24,8 +25,8 @@ export const App: React.FC = () => {
 				<Header
 					collapsed={collapsed}
 					setCollapsed={setCollapsed}
-					comments={comments}
-					orders={orders}
+					comments={comments?.comments || []}
+					orders={orders?.products || []}
 				/>
 				<Content />
 				<Footer />

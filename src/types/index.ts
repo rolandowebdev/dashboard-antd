@@ -1,4 +1,5 @@
 export * from './Cart'
+export * from './Chart'
 export * from './Comment'
 export * from './Product'
 export * from './User'
