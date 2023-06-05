@@ -13,7 +13,7 @@ export const Customers = () => {
 
 	return (
 		<Space size={0} direction='vertical' style={{ width: '100%' }}>
-			<Typography.Title level={3}>Orders</Typography.Title>
+			<Typography.Title level={3}>Customers</Typography.Title>
 			<Table
 				data={users?.users || []}
 				loading={isLoading}
