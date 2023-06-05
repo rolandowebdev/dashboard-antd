@@ -25,7 +25,7 @@ yarn build
 - Framework - [**ReactJS**](https://reactjs.org/)
 - Typechecker - [**Typescript**](https://www.typescriptlang.org/)
 - Styling - [**Ant Design**](https://ant.design/)
-- Vite - [**Build Tool**](https://vitejs.dev/)
+- Build Tool - [**Vite**](https://vitejs.dev/)
 - Icons - [**Ant Design Icons**](https://ant.design/components/icon)
 - Data Fetching - [**React Query**](https://tanstack.com/query/latest)
 - Cliend Side Routing - [**ReactRouterDOM**](https://reactrouter.com/)
