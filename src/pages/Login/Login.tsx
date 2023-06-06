@@ -1,5 +1,14 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Card, Form, Input, Layout, Typography, theme } from 'antd'
+import {
+	Button,
+	Card,
+	Form,
+	Input,
+	Layout,
+	Space,
+	Typography,
+	theme,
+} from 'antd'
 import { Link } from 'react-router-dom'
 
 export const Login = () => {
@@ -21,23 +30,21 @@ export const Login = () => {
 						<Input prefix={<UserOutlined />} placeholder='Email' size='large' />
 					</Form.Item>
 
-					<Form.Item name='password'>
+					<Space direction='vertical' style={{ width: '100%' }}>
 						<Link
-							style={{
-								fontSize: '14px',
-								float: 'right',
-								marginBottom: '6px',
-							}}
+							style={{ fontSize: '14px', float: 'right' }}
 							to='/forgot-password'>
 							Forgot password?
 						</Link>
-						<Input.Password
-							prefix={<LockOutlined />}
-							type='password'
-							placeholder='Password'
-							size='large'
-						/>
-					</Form.Item>
+						<Form.Item name='password'>
+							<Input.Password
+								prefix={<LockOutlined />}
+								type='password'
+								placeholder='Password'
+								size='large'
+							/>
+						</Form.Item>
+					</Space>
 
 					<Form.Item style={{ textAlign: 'center' }}>
 						<Button
