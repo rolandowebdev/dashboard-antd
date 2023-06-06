@@ -4,6 +4,7 @@ import { UseQueryResult, useQuery } from 'react-query'
 import { Footer, Header, Sidebar } from '../../components'
 import { fetchComments, fetchOrders } from '../../lib/fetchData'
 import { Cart, Comments } from '../../types'
+import { PrivateRoutes } from '../../routes/PrivateRoute'
 
 type ContentProps = {
 	children: ReactNode
@@ -26,7 +27,7 @@ export const Content = ({ children }: ContentProps) => {
 	)
 
 	return (
-		<>
+		<PrivateRoutes>
 			<Sidebar collapsed={collapsed} />
 			<Layout>
 				<Header
@@ -45,6 +46,6 @@ export const Content = ({ children }: ContentProps) => {
 				</Layout.Content>
 				<Footer />
 			</Layout>
-		</>
+		</PrivateRoutes>
 	)
 }
