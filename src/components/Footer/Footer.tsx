@@ -1,14 +1,12 @@
 import { Typography, Layout, theme, Row, Col } from 'antd'
 
-const { Footer: AntFooter } = Layout
-
 export const Footer = () => {
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
 
 	return (
-		<AntFooter
+		<Layout.Footer
 			style={{
 				background: colorBgContainer,
 				textAlign: 'center',
@@ -29,6 +27,6 @@ export const Footer = () => {
 					</Typography.Link>
 				</Col>
 			</Row>
-		</AntFooter>
+		</Layout.Footer>
 	)
 }

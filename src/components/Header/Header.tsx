@@ -26,8 +26,6 @@ type HeaderProps = {
 	orders: ProductCart[]
 }
 
-const { Header: AntHeader } = Layout
-
 export const Header = ({
 	collapsed,
 	setCollapsed,
@@ -41,7 +39,7 @@ export const Header = ({
 	} = theme.useToken()
 
 	return (
-		<AntHeader
+		<Layout.Header
 			style={{
 				paddingInline: 24,
 				background: colorBgContainer,
@@ -106,6 +104,6 @@ export const Header = ({
 					)}
 				/>
 			</Drawer>
-		</AntHeader>
+		</Layout.Header>
 	)
 }
