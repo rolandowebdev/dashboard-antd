@@ -32,8 +32,7 @@ export const Chart = ({
 				height: 298,
 				margin: 'auto',
 			}}
-			loading={isLoading}
-			bodyStyle={{ margin: 'auto' }}>
+			loading={isLoading}>
 			{isError ? (
 				<Typography.Text>{error?.message}</Typography.Text>
 			) : (

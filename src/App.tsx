@@ -1,7 +1,7 @@
 import { Layout } from 'antd'
 import { Route, Routes } from 'react-router-dom'
 import { Content } from './layout'
-import { Customers, Dashboard, Inventory, Orders } from './pages'
+import { Customers, Dashboard, Inventory, Login, Orders } from './pages'
 
 export const App: React.FC = () => {
 	return (
@@ -39,7 +39,7 @@ export const App: React.FC = () => {
 						</Content>
 					}
 				/>
-				<Route path='/login' />
+				<Route path='/login' element={<Login />} />
 			</Routes>
 		</Layout>
 	)
