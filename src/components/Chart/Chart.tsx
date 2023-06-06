@@ -1,4 +1,4 @@
-import { Card } from 'antd'
+import { Card, Typography } from 'antd'
 import {
 	BarElement,
 	CategoryScale,
@@ -27,11 +27,15 @@ export const Chart = ({
 	dataSource,
 }: ChartProps) => {
 	return (
-		<Card style={{ height: 298 }}>
-			{isLoading ? (
-				<div>Loading...</div>
-			) : isError ? (
-				<div>Error: {error?.message}</div>
+		<Card
+			style={{
+				height: 298,
+				margin: 'auto',
+			}}
+			loading={isLoading}
+			bodyStyle={{ margin: 'auto' }}>
+			{isError ? (
+				<Typography.Text>{error?.message}</Typography.Text>
 			) : (
 				<Bar
 					options={{
