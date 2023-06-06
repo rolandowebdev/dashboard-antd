@@ -1,36 +1,46 @@
 import { Layout } from 'antd'
-import { useState } from 'react'
-import { UseQueryResult, useQuery } from 'react-query'
-import { Content, Footer, Header, Sidebar } from './components'
-import { fetchComments, fetchOrders } from './lib/fetchData'
-import { Cart, Comments } from './types'
+import { Route, Routes } from 'react-router-dom'
+import { Content } from './layout'
+import { Customers, Dashboard, Inventory, Orders } from './pages'
 
 export const App: React.FC = () => {
-	const [collapsed, setCollapsed] = useState<boolean>(false)
-
-	const { data: comments }: UseQueryResult<Comments> = useQuery<Comments>(
-		'comments',
-		fetchComments
-	)
-
-	const { data: orders }: UseQueryResult<Cart> = useQuery<Cart>(
-		'orders',
-		fetchOrders
-	)
-
 	return (
 		<Layout style={{ minHeight: '100vh' }} hasSider>
-			<Sidebar collapsed={collapsed} />
-			<Layout>
-				<Header
-					collapsed={collapsed}
-					setCollapsed={setCollapsed}
-					comments={comments?.comments || []}
-					orders={orders?.products || []}
+			<Routes>
+				<Route
+					path='/'
+					element={
+						<Content>
+							<Dashboard />
+						</Content>
+					}
 				/>
-				<Content />
-				<Footer />
-			</Layout>
+				<Route
+					path='/inventory'
+					element={
+						<Content>
+							<Inventory />
+						</Content>
+					}
+				/>
+				<Route
+					path='/orders'
+					element={
+						<Content>
+							<Orders />
+						</Content>
+					}
+				/>
+				<Route
+					path='/customers'
+					element={
+						<Content>
+							<Customers />
+						</Content>
+					}
+				/>
+				<Route path='/login' />
+			</Routes>
 		</Layout>
 	)
 }
