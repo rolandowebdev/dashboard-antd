@@ -1,4 +1,5 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { yupResolver } from '@hookform/resolvers/yup'
 import {
 	Button,
 	Card,
@@ -7,14 +8,51 @@ import {
 	Layout,
 	Space,
 	Typography,
+	message,
 	theme,
 } from 'antd'
-import { Link } from 'react-router-dom'
+import {
+	useForm,
+	SubmitHandler,
+	FieldValues,
+	Controller,
+} from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import { userSchema } from '../../lib'
+import { useAuth } from '../../context'
 
 export const Login = () => {
+	const navigate = useNavigate()
+	const { signin, currentUser } = useAuth()
+
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
+
+	const {
+		handleSubmit,
+		reset,
+		control,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(userSchema),
+		defaultValues: {
+			email: '',
+			password: '',
+		},
+	})
+
+	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+		try {
+			await signin(data.email, data.password)
+			navigate('/', { replace: true })
+		} catch (error) {
+			message.error('Login Failed. Please check your credentials')
+			reset()
+		}
+	}
+
+	console.log(currentUser)
 
 	return (
 		<Layout
@@ -26,10 +64,23 @@ export const Login = () => {
 			}}>
 			<Typography.Title level={1}>Login</Typography.Title>
 			<Card bordered style={{ width: '400px' }}>
-				<Form>
-					<Form.Item name='email'>
-						<Input prefix={<UserOutlined />} placeholder='Email' size='large' />
-					</Form.Item>
+				<Form noValidate component='form' onFinish={handleSubmit(onSubmit)}>
+					<Controller
+						name='email'
+						control={control}
+						render={({ field }) => (
+							<Form.Item
+								help={errors['email'] ? errors['email']?.message : null}
+								validateStatus={errors['email'] ? 'error' : ''}>
+								<Input
+									prefix={<UserOutlined />}
+									placeholder='Email'
+									size='large'
+									{...field}
+								/>
+							</Form.Item>
+						)}
+					/>
 
 					<Space direction='vertical' style={{ width: '100%' }}>
 						<Link
@@ -37,17 +88,26 @@ export const Login = () => {
 							to='/forgot-password'>
 							Forgot password?
 						</Link>
-						<Form.Item name='password'>
-							<Input.Password
-								prefix={<LockOutlined />}
-								type='password'
-								placeholder='Password'
-								size='large'
-							/>
-						</Form.Item>
+						<Controller
+							name='password'
+							control={control}
+							render={({ field }) => (
+								<Form.Item
+									help={errors['password'] ? errors['password']?.message : null}
+									validateStatus={errors['password'] ? 'error' : ''}>
+									<Input.Password
+										prefix={<LockOutlined />}
+										type='password'
+										placeholder='Password'
+										size='large'
+										{...field}
+									/>
+								</Form.Item>
+							)}
+						/>
 					</Space>
 
-					<Form.Item style={{ textAlign: 'center' }}>
+					<Form.Item style={{ textAlign: 'center', marginTop: '8px' }}>
 						<Button
 							style={{
 								width: '100%',

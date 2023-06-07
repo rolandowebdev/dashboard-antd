@@ -2,9 +2,8 @@ import { Layout, theme } from 'antd'
 import { ReactNode, useState } from 'react'
 import { UseQueryResult, useQuery } from 'react-query'
 import { Footer, Header, Sidebar } from '../../components'
-import { fetchComments, fetchOrders } from '../../lib/fetchData'
 import { Cart, Comments } from '../../types'
-import { PrivateRoutes } from '../../routes/PrivateRoute'
+import { fetchComments, fetchOrders } from '../../lib'
 
 type ContentProps = {
 	children: ReactNode
@@ -12,6 +11,7 @@ type ContentProps = {
 
 export const Content = ({ children }: ContentProps) => {
 	const [collapsed, setCollapsed] = useState<boolean>(false)
+
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
@@ -27,7 +27,7 @@ export const Content = ({ children }: ContentProps) => {
 	)
 
 	return (
-		<PrivateRoutes>
+		<>
 			<Sidebar collapsed={collapsed} />
 			<Layout>
 				<Header
@@ -46,6 +46,6 @@ export const Content = ({ children }: ContentProps) => {
 				</Layout.Content>
 				<Footer />
 			</Layout>
-		</PrivateRoutes>
+		</>
 	)
 }

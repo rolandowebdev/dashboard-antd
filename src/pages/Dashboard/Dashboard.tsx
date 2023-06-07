@@ -12,9 +12,10 @@ import {
 	fetchInventory,
 	fetchOrders,
 	fetchRevenue,
-} from '../../lib/fetchData'
+} from '../../lib'
 import { Cart, Carts, ChartDataSource, Products, Users } from '../../types'
 import { ordersTable } from '../../utils'
+import { Content } from '../../layout'
 
 export const Dashboard = () => {
 	const {
@@ -56,97 +57,99 @@ export const Dashboard = () => {
 	}
 
 	return (
-		<Space size={18} direction='vertical' style={{ width: '100%' }}>
-			<Row gutter={24}>
-				<Col span={24}>
-					<Typography.Title level={3}>Dashboard</Typography.Title>
-				</Col>
-				<Col span={6}>
-					<MenuCard
-						icon={
-							<ShoppingCartOutlined
-								style={{
-									color: 'green',
-									backgroundColor: 'rgba(0,255,0,0.25)',
-									borderRadius: '100%',
-									fontSize: 24,
-									padding: 8,
-								}}
-							/>
-						}
-						title='Orders'
-						value={ordersCount}
-					/>
-				</Col>{' '}
-				<Col span={6}>
-					<MenuCard
-						icon={
-							<ShoppingOutlined
-								style={{
-									color: 'blueviolet',
-									backgroundColor: 'rgba(0,0,255,0.25)',
-									borderRadius: '100%',
-									fontSize: 24,
-									padding: 8,
-								}}
-							/>
-						}
-						title='Inventory'
-						value={inventoryCount}
-					/>
-				</Col>{' '}
-				<Col span={6}>
-					<MenuCard
-						icon={
-							<UserOutlined
-								style={{
-									color: 'red ',
-									backgroundColor: 'rgba(255,0,0,0.25)',
-									borderRadius: '100%',
-									fontSize: 24,
-									padding: 8,
-								}}
-							/>
-						}
-						title='Customers'
-						value={customersCount}
-					/>
-				</Col>{' '}
-				<Col span={6}>
-					<MenuCard
-						icon={
-							<DollarOutlined
-								style={{
-									color: 'orange',
-									backgroundColor: 'rgba(255,100,0,0.25)',
-									borderRadius: '100%',
-									fontSize: 24,
-									padding: 8,
-								}}
-							/>
-						}
-						title='Revenue'
-						value={revenueCount}
-					/>
-				</Col>
-			</Row>
-			<Row gutter={16} align='stretch' wrap>
-				<Col span={12}>
-					<Table
-						data={orders?.products.slice(0, 4) || []}
-						loading={isOrdersLoading}
-						columnsData={ordersTable}
-					/>
-				</Col>
-				<Col span={12}>
-					<Chart
-						error={revenueError}
-						isError={isRevenueError}
-						isLoading={isRevenueLoading}
-						dataSource={revenueDataSource}
-					/>
-				</Col>
-			</Row>
-		</Space>
+		<Content>
+			<Space size={18} direction='vertical' style={{ width: '100%' }}>
+				<Row gutter={24}>
+					<Col span={24}>
+						<Typography.Title level={3}>Dashboard</Typography.Title>
+					</Col>
+					<Col span={6}>
+						<MenuCard
+							icon={
+								<ShoppingCartOutlined
+									style={{
+										color: 'green',
+										backgroundColor: 'rgba(0,255,0,0.25)',
+										borderRadius: '100%',
+										fontSize: 24,
+										padding: 8,
+									}}
+								/>
+							}
+							title='Orders'
+							value={ordersCount}
+						/>
+					</Col>{' '}
+					<Col span={6}>
+						<MenuCard
+							icon={
+								<ShoppingOutlined
+									style={{
+										color: 'blueviolet',
+										backgroundColor: 'rgba(0,0,255,0.25)',
+										borderRadius: '100%',
+										fontSize: 24,
+										padding: 8,
+									}}
+								/>
+							}
+							title='Inventory'
+							value={inventoryCount}
+						/>
+					</Col>{' '}
+					<Col span={6}>
+						<MenuCard
+							icon={
+								<UserOutlined
+									style={{
+										color: 'red ',
+										backgroundColor: 'rgba(255,0,0,0.25)',
+										borderRadius: '100%',
+										fontSize: 24,
+										padding: 8,
+									}}
+								/>
+							}
+							title='Customers'
+							value={customersCount}
+						/>
+					</Col>{' '}
+					<Col span={6}>
+						<MenuCard
+							icon={
+								<DollarOutlined
+									style={{
+										color: 'orange',
+										backgroundColor: 'rgba(255,100,0,0.25)',
+										borderRadius: '100%',
+										fontSize: 24,
+										padding: 8,
+									}}
+								/>
+							}
+							title='Revenue'
+							value={revenueCount}
+						/>
+					</Col>
+				</Row>
+				<Row gutter={16} align='stretch' wrap>
+					<Col span={12}>
+						<Table
+							data={orders?.products.slice(0, 4) || []}
+							loading={isOrdersLoading}
+							columnsData={ordersTable}
+						/>
+					</Col>
+					<Col span={12}>
+						<Chart
+							error={revenueError}
+							isError={isRevenueError}
+							isLoading={isRevenueLoading}
+							dataSource={revenueDataSource}
+						/>
+					</Col>
+				</Row>
+			</Space>
+		</Content>
 	)
 }

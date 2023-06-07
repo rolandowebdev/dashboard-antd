@@ -1,6 +1,5 @@
 import { Layout } from 'antd'
 import { Route, Routes } from 'react-router-dom'
-import { Content } from './layout'
 import {
 	Customers,
 	Dashboard,
@@ -9,6 +8,7 @@ import {
 	Orders,
 	Register,
 } from './pages'
+import { PrivateRoutes } from './routes'
 
 export const App: React.FC = () => {
 	return (
@@ -17,33 +17,33 @@ export const App: React.FC = () => {
 				<Route
 					path='/'
 					element={
-						<Content>
+						<PrivateRoutes>
 							<Dashboard />
-						</Content>
+						</PrivateRoutes>
 					}
 				/>
 				<Route
 					path='/inventory'
 					element={
-						<Content>
+						<PrivateRoutes>
 							<Inventory />
-						</Content>
+						</PrivateRoutes>
 					}
 				/>
 				<Route
 					path='/orders'
 					element={
-						<Content>
+						<PrivateRoutes>
 							<Orders />
-						</Content>
+						</PrivateRoutes>
 					}
 				/>
 				<Route
 					path='/customers'
 					element={
-						<Content>
+						<PrivateRoutes>
 							<Customers />
-						</Content>
+						</PrivateRoutes>
 					}
 				/>
 				<Route path='/login' element={<Login />} />
