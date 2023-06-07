@@ -21,6 +21,8 @@ export const Sidebar = ({ collapsed, handleLogout }: SidebarProps) => {
 		setSelectedKeys(pathName)
 	}, [location.pathname])
 
+	console.log(collapsed ? 'Close' : 'Open')
+
 	return (
 		<Sider
 			trigger={null}
@@ -50,7 +52,7 @@ export const Sidebar = ({ collapsed, handleLogout }: SidebarProps) => {
 					height: '40px',
 					borderRadius: '8px',
 				}}>
-				Logout
+				{!collapsed ? 'Logout' : null}
 			</Button>
 		</Sider>
 	)
