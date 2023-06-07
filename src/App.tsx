@@ -7,6 +7,7 @@ import {
 	Login,
 	Orders,
 	Register,
+	ResetPassword,
 } from './pages'
 import { PrivateRoutes } from './routes'
 
@@ -48,6 +49,7 @@ export const App: React.FC = () => {
 				/>
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
+				<Route path='/reset-password' element={<ResetPassword />} />
 			</Routes>
 		</Layout>
 	)

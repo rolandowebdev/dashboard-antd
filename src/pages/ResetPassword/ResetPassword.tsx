@@ -1,4 +1,4 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { UserOutlined } from '@ant-design/icons'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
 	Button,
@@ -6,7 +6,6 @@ import {
 	Form,
 	Input,
 	Layout,
-	Space,
 	Typography,
 	message,
 	theme,
@@ -17,14 +16,12 @@ import {
 	FieldValues,
 	Controller,
 } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
-import { loginSchema } from '../../lib'
+import { Link } from 'react-router-dom'
+import { resetPasswordSchema } from '../../lib'
 import { useAuth } from '../../context'
 
-export const Login = () => {
-	const navigate = useNavigate()
-	const { signin } = useAuth()
-
+export const ResetPassword = () => {
+	const { resetPassword } = useAuth()
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
@@ -35,19 +32,21 @@ export const Login = () => {
 		control,
 		formState: { errors },
 	} = useForm({
-		resolver: yupResolver(loginSchema),
+		resolver: yupResolver(resetPasswordSchema),
 		defaultValues: {
 			email: '',
-			password: '',
 		},
 	})
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
-			await signin(data.email, data.password)
-			navigate('/', { replace: true })
+			await resetPassword(data.email)
+			message.success(
+				'You have successfully reset password, check you email now.'
+			)
+			reset()
 		} catch {
-			message.error('Login Failed. Please check your credentials')
+			message.error('Failed to reset password. Your email was not found.')
 			reset()
 		}
 	}
@@ -60,7 +59,8 @@ export const Login = () => {
 				alignItems: 'center',
 				backgroundColor: colorBgContainer,
 			}}>
-			<Typography.Title level={1}>Login</Typography.Title>
+			<Typography.Title level={1}>Reset Password</Typography.Title>
+
 			<Card bordered style={{ width: '400px' }}>
 				<Form noValidate component='form' onFinish={handleSubmit(onSubmit)}>
 					<Controller
@@ -80,31 +80,6 @@ export const Login = () => {
 						)}
 					/>
 
-					<Space direction='vertical' style={{ width: '100%' }}>
-						<Link
-							style={{ fontSize: '14px', float: 'right' }}
-							to='/reset-password'>
-							Forgot password?
-						</Link>
-						<Controller
-							name='password'
-							control={control}
-							render={({ field }) => (
-								<Form.Item
-									help={errors['password'] ? errors['password']?.message : null}
-									validateStatus={errors['password'] ? 'error' : ''}>
-									<Input.Password
-										prefix={<LockOutlined />}
-										type='password'
-										placeholder='Password'
-										size='large'
-										{...field}
-									/>
-								</Form.Item>
-							)}
-						/>
-					</Space>
-
 					<Form.Item style={{ textAlign: 'center', marginTop: '8px' }}>
 						<Button
 							style={{
@@ -114,7 +89,7 @@ export const Login = () => {
 							}}
 							size='large'
 							htmlType='submit'>
-							Log in
+							Reset Password
 						</Button>
 					</Form.Item>
 				</Form>
@@ -124,7 +99,7 @@ export const Login = () => {
 				bordered
 				style={{ marginTop: '16px', width: '400px', textAlign: 'center' }}>
 				<Typography.Text style={{ fontSize: '15px' }}>
-					New to Dashboard Antd? <Link to='/register'>Create an account!</Link>
+					Have you reset your password? <Link to='/login'>Login now!</Link>
 				</Typography.Text>
 			</Card>
 		</Layout>
