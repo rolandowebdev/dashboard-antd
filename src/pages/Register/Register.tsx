@@ -20,9 +20,11 @@ import {
 } from 'react-hook-form'
 import { useAuth } from '../../context'
 import { updateProfile } from 'firebase/auth'
+import { useState } from 'react'
 
 export const Register = () => {
 	const { signup } = useAuth()
+	const [isLoading, setIsLoading] = useState(false)
 
 	const {
 		token: { colorBgContainer },
@@ -45,15 +47,18 @@ export const Register = () => {
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
+			setIsLoading(true)
 			const res = await signup(data.email, data.password)
 			await updateProfile(res.user, {
 				displayName: data.fullName,
 			})
 			message.success('You have successfully created an account!')
 			reset()
+			setIsLoading(false)
 		} catch {
 			message.error('Failed to register user. Please try again.')
 			reset()
+			setIsLoading(false)
 		}
 	}
 
@@ -144,6 +149,7 @@ export const Register = () => {
 
 					<Form.Item style={{ textAlign: 'center' }}>
 						<Button
+							loading={isLoading}
 							style={{
 								width: '100%',
 								backgroundColor: '#001529',
@@ -151,7 +157,7 @@ export const Register = () => {
 							}}
 							size='large'
 							htmlType='submit'>
-							Register
+							{!isLoading ? 'Register' : null}
 						</Button>
 					</Form.Item>
 				</Form>

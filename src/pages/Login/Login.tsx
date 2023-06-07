@@ -20,10 +20,12 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 import { loginSchema } from '../../lib'
 import { useAuth } from '../../context'
+import { useState } from 'react'
 
 export const Login = () => {
 	const navigate = useNavigate()
 	const { signin } = useAuth()
+	const [isLoading, setIsLoading] = useState(false)
 
 	const {
 		token: { colorBgContainer },
@@ -44,11 +46,14 @@ export const Login = () => {
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
+			setIsLoading(true)
 			await signin(data.email, data.password)
 			navigate('/', { replace: true })
+			setIsLoading(false)
 		} catch {
 			message.error('Login Failed. Please check your credentials')
 			reset()
+			setIsLoading(false)
 		}
 	}
 
@@ -107,6 +112,7 @@ export const Login = () => {
 
 					<Form.Item style={{ textAlign: 'center', marginTop: '8px' }}>
 						<Button
+							loading={isLoading}
 							style={{
 								width: '100%',
 								backgroundColor: '#001529',
@@ -114,7 +120,7 @@ export const Login = () => {
 							}}
 							size='large'
 							htmlType='submit'>
-							Log in
+							{!isLoading ? 'Log in' : null}
 						</Button>
 					</Form.Item>
 				</Form>

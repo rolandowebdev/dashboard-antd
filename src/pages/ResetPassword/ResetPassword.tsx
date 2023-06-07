@@ -19,9 +19,12 @@ import {
 import { Link } from 'react-router-dom'
 import { resetPasswordSchema } from '../../lib'
 import { useAuth } from '../../context'
+import { useState } from 'react'
 
 export const ResetPassword = () => {
 	const { resetPassword } = useAuth()
+	const [isLoading, setIsLoading] = useState(false)
+
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
@@ -40,14 +43,17 @@ export const ResetPassword = () => {
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
+			setIsLoading(true)
 			await resetPassword(data.email)
 			message.success(
 				'You have successfully reset password, check you email now.'
 			)
 			reset()
+			setIsLoading(false)
 		} catch {
 			message.error('Failed to reset password. Your email was not found.')
 			reset()
+			setIsLoading(false)
 		}
 	}
 
@@ -82,6 +88,7 @@ export const ResetPassword = () => {
 
 					<Form.Item style={{ textAlign: 'center', marginTop: '8px' }}>
 						<Button
+							loading={isLoading}
 							style={{
 								width: '100%',
 								backgroundColor: '#001529',
@@ -89,7 +96,7 @@ export const ResetPassword = () => {
 							}}
 							size='large'
 							htmlType='submit'>
-							Reset Password
+							{!isLoading ? 'Reset Password' : null}
 						</Button>
 					</Form.Item>
 				</Form>
