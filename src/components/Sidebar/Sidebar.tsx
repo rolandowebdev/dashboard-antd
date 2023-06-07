@@ -1,4 +1,4 @@
-import { Button, Divider, Layout, Menu, Space } from 'antd'
+import { Button, Divider, Layout, Menu, Modal, Space, Typography } from 'antd'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { menuItems } from '../../utils'
@@ -12,7 +12,16 @@ type SidebarProps = {
 export const Sidebar = ({ collapsed, handleLogout }: SidebarProps) => {
 	const navigate = useNavigate()
 	const location = useLocation()
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 	const [selectedKeys, setSelectedKeys] = useState<string>(location.pathname)
+
+	const showModal = () => {
+		setIsModalOpen(true)
+	}
+
+	const handleCancel = () => {
+		setIsModalOpen(false)
+	}
 
 	useEffect(() => {
 		const pathName = location.pathname
@@ -44,7 +53,7 @@ export const Sidebar = ({ collapsed, handleLogout }: SidebarProps) => {
 				/>
 				<Button
 					block
-					onClick={handleLogout}
+					onClick={showModal}
 					icon={<LogoutOutlined />}
 					style={{
 						height: '40px',
@@ -52,6 +61,15 @@ export const Sidebar = ({ collapsed, handleLogout }: SidebarProps) => {
 					}}>
 					{!collapsed ? 'Logout' : null}
 				</Button>
+				<Modal
+					title='Logout'
+					open={isModalOpen}
+					onOk={handleLogout}
+					onCancel={handleCancel}>
+					<Typography.Paragraph>
+						Do you really wish to leave and log out?
+					</Typography.Paragraph>
+				</Modal>
 			</Space>
 		</Layout.Sider>
 	)
