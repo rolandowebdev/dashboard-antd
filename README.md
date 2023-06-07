@@ -32,6 +32,9 @@ yarn build
 - Package Manager - [**Yarn**](https://yarnpkg.com/)
 - Linter - [**Eslint**](https://eslint.org/)
 - Deployment - [**Netlify**](https://www.netlify.com/)
+- Authentication User - [**Firebase**](https://firebase.google.com/)
+- Form Validation - [**React Hook Form**](https://react-hook-form.com/)
 - Others
   - Chart - [**Chart.js**](https://www.chartjs.org/)
+  - Yup - [**Yup**](https://github.com/jquense/yup)
   - vite-plugin-html - [**lint-staged**](https://www.npmjs.com/package/vite-plugin-html)
