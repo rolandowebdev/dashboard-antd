@@ -1,9 +1,10 @@
-import { Layout, theme } from 'antd'
+import { Layout, message, theme } from 'antd'
 import { ReactNode, useState } from 'react'
 import { UseQueryResult, useQuery } from 'react-query'
 import { Footer, Header, Sidebar } from '../../components'
 import { Cart, Comments } from '../../types'
 import { fetchComments, fetchOrders } from '../../lib'
+import { useAuth } from '../../context'
 
 type ContentProps = {
 	children: ReactNode
@@ -11,6 +12,7 @@ type ContentProps = {
 
 export const Content = ({ children }: ContentProps) => {
 	const [collapsed, setCollapsed] = useState<boolean>(false)
+	const { signout } = useAuth()
 
 	const {
 		token: { colorBgContainer },
@@ -26,9 +28,18 @@ export const Content = ({ children }: ContentProps) => {
 		fetchOrders
 	)
 
+	const handleLogout = async () => {
+		try {
+			await signout()
+			localStorage.removeItem('currentUser')
+		} catch (error) {
+			message.error('Logout Failed.')
+		}
+	}
+
 	return (
 		<>
-			<Sidebar collapsed={collapsed} />
+			<Sidebar collapsed={collapsed} handleLogout={handleLogout} />
 			<Layout>
 				<Header
 					collapsed={collapsed}
