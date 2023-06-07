@@ -1,11 +1,62 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Card, Form, Input, Layout, Typography, theme } from 'antd'
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
+import { yupResolver } from '@hookform/resolvers/yup'
+import {
+	Button,
+	Card,
+	Form,
+	Input,
+	Layout,
+	Typography,
+	message,
+	theme,
+} from 'antd'
 import { Link } from 'react-router-dom'
+import { registerSchema } from '../../lib'
+import {
+	SubmitHandler,
+	FieldValues,
+	useForm,
+	Controller,
+} from 'react-hook-form'
+import { useAuth } from '../../context'
+import { updateProfile } from 'firebase/auth'
 
 export const Register = () => {
+	const { signup } = useAuth()
+
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken()
+
+	const {
+		handleSubmit,
+		reset,
+		control,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(registerSchema),
+		defaultValues: {
+			fullName: '',
+			email: '',
+			password: '',
+			confirmPassword: '',
+		},
+	})
+
+	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+		try {
+			const res = await signup(data.email, data.password)
+			await updateProfile(res.user, {
+				displayName: data.fullName,
+			})
+			message.success('You have successfully created an account!')
+			reset()
+		} catch {
+			message.error('Failed to register user. Please try again.')
+			reset()
+		}
+	}
+
 	return (
 		<Layout
 			style={{
@@ -16,28 +67,80 @@ export const Register = () => {
 			}}>
 			<Typography.Title level={1}>Register</Typography.Title>
 			<Card bordered style={{ width: '400px' }}>
-				<Form>
-					<Form.Item name='email'>
-						<Input prefix={<UserOutlined />} placeholder='Email' size='large' />
-					</Form.Item>
+				<Form noValidate component='form' onFinish={handleSubmit(onSubmit)}>
+					<Controller
+						name='fullName'
+						control={control}
+						render={({ field }) => (
+							<Form.Item
+								help={errors['fullName'] ? errors['fullName']?.message : null}
+								validateStatus={errors['fullName'] ? 'error' : ''}>
+								<Input
+									prefix={<UserOutlined />}
+									placeholder='Full Name'
+									size='large'
+									{...field}
+								/>
+							</Form.Item>
+						)}
+					/>
 
-					<Form.Item name='password'>
-						<Input.Password
-							prefix={<LockOutlined />}
-							type='password'
-							placeholder='Password'
-							size='large'
-						/>
-					</Form.Item>
+					<Controller
+						name='email'
+						control={control}
+						render={({ field }) => (
+							<Form.Item
+								help={errors['email'] ? errors['email']?.message : null}
+								validateStatus={errors['email'] ? 'error' : ''}>
+								<Input
+									prefix={<MailOutlined />}
+									placeholder='Email'
+									size='large'
+									{...field}
+								/>
+							</Form.Item>
+						)}
+					/>
 
-					<Form.Item name='confirmPassword'>
-						<Input.Password
-							prefix={<LockOutlined />}
-							type='password'
-							placeholder='Confirm Password'
-							size='large'
-						/>
-					</Form.Item>
+					<Controller
+						name='password'
+						control={control}
+						render={({ field }) => (
+							<Form.Item
+								help={errors['password'] ? errors['password']?.message : null}
+								validateStatus={errors['password'] ? 'error' : ''}>
+								<Input.Password
+									prefix={<LockOutlined />}
+									type='password'
+									placeholder='Password'
+									size='large'
+									{...field}
+								/>
+							</Form.Item>
+						)}
+					/>
+
+					<Controller
+						name='confirmPassword'
+						control={control}
+						render={({ field }) => (
+							<Form.Item
+								help={
+									errors['confirmPassword']
+										? errors['confirmPassword']?.message
+										: null
+								}
+								validateStatus={errors['confirmPassword'] ? 'error' : ''}>
+								<Input.Password
+									prefix={<LockOutlined />}
+									type='password'
+									placeholder='Confirm Password'
+									size='large'
+									{...field}
+								/>
+							</Form.Item>
+						)}
+					/>
 
 					<Form.Item style={{ textAlign: 'center' }}>
 						<Button
@@ -48,7 +151,7 @@ export const Register = () => {
 							}}
 							size='large'
 							htmlType='submit'>
-							Log in
+							Register
 						</Button>
 					</Form.Item>
 				</Form>

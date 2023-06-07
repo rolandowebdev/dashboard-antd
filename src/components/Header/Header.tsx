@@ -18,6 +18,7 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import { Comment, ProductCart } from '../../types'
+import { useAuth } from '../../context'
 
 type HeaderProps = {
 	collapsed: boolean
@@ -32,6 +33,7 @@ export const Header = ({
 	comments,
 	orders,
 }: HeaderProps) => {
+	const { currentUser } = useAuth()
 	const [openComments, setOpenComments] = useState<boolean>(false)
 	const [openNotification, setOpenNotification] = useState<boolean>(false)
 	const {
@@ -61,6 +63,12 @@ export const Header = ({
 							color: '#fff',
 						}}
 					/>
+				</Col>
+				<Col>
+					<Typography.Title level={3} style={{ fontWeight: 'bold' }}>
+						<span style={{ fontWeight: 'normal' }}>Welcome,</span>{' '}
+						{currentUser?.displayName}👋
+					</Typography.Title>
 				</Col>
 				<Col>
 					<Space size='middle' align='center'>

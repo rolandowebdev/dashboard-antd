@@ -61,7 +61,9 @@ export const Dashboard = () => {
 			<Space size={18} direction='vertical' style={{ width: '100%' }}>
 				<Row gutter={24}>
 					<Col span={24}>
-						<Typography.Title level={3}>Dashboard</Typography.Title>
+						<Space direction='vertical'>
+							<Typography.Title level={3}>Dashboard</Typography.Title>
+						</Space>
 					</Col>
 					<Col span={6}>
 						<MenuCard

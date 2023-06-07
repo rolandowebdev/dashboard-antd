@@ -18,12 +18,12 @@ import {
 	Controller,
 } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { userSchema } from '../../lib'
+import { loginSchema } from '../../lib'
 import { useAuth } from '../../context'
 
 export const Login = () => {
 	const navigate = useNavigate()
-	const { signin, currentUser } = useAuth()
+	const { signin } = useAuth()
 
 	const {
 		token: { colorBgContainer },
@@ -35,7 +35,7 @@ export const Login = () => {
 		control,
 		formState: { errors },
 	} = useForm({
-		resolver: yupResolver(userSchema),
+		resolver: yupResolver(loginSchema),
 		defaultValues: {
 			email: '',
 			password: '',
@@ -46,13 +46,11 @@ export const Login = () => {
 		try {
 			await signin(data.email, data.password)
 			navigate('/', { replace: true })
-		} catch (error) {
+		} catch {
 			message.error('Login Failed. Please check your credentials')
 			reset()
 		}
 	}
-
-	console.log(currentUser)
 
 	return (
 		<Layout
