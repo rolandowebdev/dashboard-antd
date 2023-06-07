@@ -17,8 +17,8 @@ import {
 	theme,
 } from 'antd'
 import { useState } from 'react'
-import { Comment, ProductCart } from '../../types'
 import { useAuth } from '../../context'
+import { Comment, ProductCart } from '../../types'
 
 type HeaderProps = {
 	collapsed: boolean

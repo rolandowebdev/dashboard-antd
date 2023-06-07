@@ -2,9 +2,9 @@ import { Layout, message, theme } from 'antd'
 import { ReactNode, useState } from 'react'
 import { UseQueryResult, useQuery } from 'react-query'
 import { Footer, Header, Sidebar } from '../../components'
-import { Cart, Comments } from '../../types'
-import { fetchComments, fetchOrders } from '../../lib'
 import { useAuth } from '../../context'
+import { fetchComments, fetchOrders } from '../../lib'
+import { Cart, Comments } from '../../types'
 
 type ContentProps = {
 	children: ReactNode

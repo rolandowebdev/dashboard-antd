@@ -1,10 +1,10 @@
 import { Space, Typography } from 'antd'
+import { UseQueryResult, useQuery } from 'react-query'
 import { Table } from '../../components'
+import { Content } from '../../layout'
 import { fetchOrders } from '../../lib'
 import { Cart } from '../../types'
 import { ordersTable } from '../../utils'
-import { UseQueryResult, useQuery } from 'react-query'
-import { Content } from '../../layout'
 
 export const Orders = () => {
 	const { data: orders, isLoading }: UseQueryResult<Cart> = useQuery<Cart>(

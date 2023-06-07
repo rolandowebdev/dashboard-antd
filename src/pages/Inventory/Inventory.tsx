@@ -1,10 +1,10 @@
 import { Space, Typography } from 'antd'
 import { UseQueryResult, useQuery } from 'react-query'
 import { Table } from '../../components'
+import { Content } from '../../layout'
 import { fetchInventory } from '../../lib'
 import { Products } from '../../types'
 import { inventoryTable } from '../../utils'
-import { Content } from '../../layout'
 
 export const Inventory = () => {
 	const { data: products, isLoading }: UseQueryResult<Products> =

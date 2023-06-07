@@ -10,16 +10,16 @@ import {
 	message,
 	theme,
 } from 'antd'
+import { useState } from 'react'
 import {
-	useForm,
-	SubmitHandler,
-	FieldValues,
 	Controller,
+	FieldValues,
+	SubmitHandler,
+	useForm,
 } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { resetPasswordSchema } from '../../lib'
 import { useAuth } from '../../context'
-import { useState } from 'react'
+import { resetPasswordSchema } from '../../lib'
 
 export const ResetPassword = () => {
 	const { resetPassword } = useAuth()

@@ -15,7 +15,7 @@ import {
 	useMemo,
 	useState,
 } from 'react'
-import { auth } from '../lib'
+import { auth } from '../../lib'
 
 interface AuthContextProps {
 	currentUser: User | null

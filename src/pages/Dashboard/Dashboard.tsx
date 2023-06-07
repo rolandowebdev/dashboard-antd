@@ -7,6 +7,7 @@ import {
 import { Col, Row, Space, Typography } from 'antd'
 import { UseQueryResult, useQuery } from 'react-query'
 import { Chart, MenuCard, Table } from '../../components'
+import { Content } from '../../layout'
 import {
 	fetchCustomers,
 	fetchInventory,
@@ -15,7 +16,6 @@ import {
 } from '../../lib'
 import { Cart, Carts, ChartDataSource, Products, Users } from '../../types'
 import { ordersTable } from '../../utils'
-import { Content } from '../../layout'
 
 export const Dashboard = () => {
 	const {

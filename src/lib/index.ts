@@ -1,4 +1,4 @@
 export * from './fetchData'
 export * from './firebaseConfig'
 export * from './formValidation'
-export * from './schema'
+export * from './authSchema'

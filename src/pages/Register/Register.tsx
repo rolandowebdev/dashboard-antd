@@ -10,17 +10,17 @@ import {
 	message,
 	theme,
 } from 'antd'
-import { Link } from 'react-router-dom'
-import { registerSchema } from '../../lib'
-import {
-	SubmitHandler,
-	FieldValues,
-	useForm,
-	Controller,
-} from 'react-hook-form'
-import { useAuth } from '../../context'
 import { updateProfile } from 'firebase/auth'
 import { useState } from 'react'
+import {
+	Controller,
+	FieldValues,
+	SubmitHandler,
+	useForm,
+} from 'react-hook-form'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../context'
+import { registerSchema } from '../../lib'
 
 export const Register = () => {
 	const { signup } = useAuth()

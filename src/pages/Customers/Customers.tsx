@@ -1,10 +1,10 @@
 import { Space, Typography } from 'antd'
+import { UseQueryResult, useQuery } from 'react-query'
 import { Table } from '../../components'
+import { Content } from '../../layout'
+import { fetchCustomers } from '../../lib'
 import { Users } from '../../types'
 import { usersTable } from '../../utils'
-import { UseQueryResult, useQuery } from 'react-query'
-import { fetchCustomers } from '../../lib'
-import { Content } from '../../layout'
 
 export const Customers = () => {
 	const { data: users, isLoading }: UseQueryResult<Users> = useQuery<Users>(

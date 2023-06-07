@@ -11,16 +11,16 @@ import {
 	message,
 	theme,
 } from 'antd'
+import { useState } from 'react'
 import {
-	useForm,
-	SubmitHandler,
-	FieldValues,
 	Controller,
+	FieldValues,
+	SubmitHandler,
+	useForm,
 } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginSchema } from '../../lib'
 import { useAuth } from '../../context'
-import { useState } from 'react'
+import { loginSchema } from '../../lib'
 
 export const Login = () => {
 	const navigate = useNavigate()
