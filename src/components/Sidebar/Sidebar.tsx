@@ -34,25 +34,31 @@ export const Sidebar = ({ collapsed, handleLogout }: SidebarProps) => {
 				direction='vertical'
 				style={{
 					width: '100%',
-					paddingInline: '10px',
+					paddingInline: '8px',
 					position: 'sticky',
 					top: '14px',
 				}}>
 				<Menu
-					selectedKeys={[selectedKeys]}
 					theme='dark'
-					mode='vertical'
+					selectedKeys={[selectedKeys]}
 					defaultSelectedKeys={['1']}
 					onClick={(e) => navigate(e.key)}
 					items={menuItems}
+					style={{
+						borderRadius: '8px',
+						padding: '6px',
+						backgroundColor: '#052442',
+					}}
 				/>
 				<Divider
 					style={{
-						backgroundColor: 'rgba(255, 255, 255, 0.65)',
+						marginBlock: '12px',
+						backgroundColor: '#4c6781',
 					}}
 				/>
 				<Button
 					block
+					type='primary'
 					onClick={showModal}
 					icon={<LogoutOutlined />}
 					style={{
