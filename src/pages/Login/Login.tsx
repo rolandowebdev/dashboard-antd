@@ -85,7 +85,7 @@ export const Login = () => {
 						)}
 					/>
 
-					<Space direction='vertical' style={{ width: '100%' }}>
+					<Space size={2} direction='vertical' style={{ width: '100%' }}>
 						<Link
 							style={{ fontSize: '14px', float: 'right' }}
 							to='/reset-password'>

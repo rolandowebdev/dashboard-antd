@@ -10,7 +10,7 @@ type MenuCardProps = {
 export const MenuCard = ({ title, value, icon }: MenuCardProps) => {
 	return (
 		<Card bordered>
-			<Space direction='horizontal' size={24}>
+			<Space direction='horizontal' size={2}>
 				{icon}
 				<Statistic title={title} value={value} />
 			</Space>

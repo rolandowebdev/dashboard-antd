@@ -27,12 +27,7 @@ export const Chart = ({
 	dataSource,
 }: ChartProps) => {
 	return (
-		<Card
-			style={{
-				height: 298,
-				margin: 'auto',
-			}}
-			loading={isLoading}>
+		<Card loading={isLoading}>
 			{isError ? (
 				<Typography.Text>{error?.message}</Typography.Text>
 			) : (

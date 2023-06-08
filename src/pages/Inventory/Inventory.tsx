@@ -12,7 +12,7 @@ export const Inventory = () => {
 
 	return (
 		<Content>
-			<Space size={0} direction='vertical' style={{ width: '100%' }}>
+			<Space size={2} direction='vertical' style={{ width: '100%' }}>
 				<Typography.Title level={3}>Inventory</Typography.Title>
 				<Table
 					data={products?.products || []}

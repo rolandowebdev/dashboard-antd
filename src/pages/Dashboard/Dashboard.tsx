@@ -58,10 +58,10 @@ export const Dashboard = () => {
 
 	return (
 		<Content>
-			<Space size={18} direction='vertical' style={{ width: '100%' }}>
+			<Space size={12} direction='vertical' style={{ width: '100%' }}>
 				<Row gutter={24}>
 					<Col span={24}>
-						<Space direction='vertical'>
+						<Space size={2} direction='vertical'>
 							<Typography.Title level={3}>Dashboard</Typography.Title>
 						</Space>
 					</Col>

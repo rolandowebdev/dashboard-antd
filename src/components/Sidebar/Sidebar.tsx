@@ -31,6 +31,7 @@ export const Sidebar = ({ collapsed, handleLogout }: SidebarProps) => {
 	return (
 		<Layout.Sider trigger={null} collapsible collapsed={collapsed} width={240}>
 			<Space
+				size={2}
 				direction='vertical'
 				style={{
 					width: '100%',
